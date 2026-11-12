@@ -1,0 +1,98 @@
+{% extends "master.html" %}
+{% block title %}Students Page{% endblock %}
+{% block content %}
+  <div class="student-list-header mb-3">
+    <form method="get" class="d-flex justify-content-between">
+      <div class="search-wrapper">
+        <div class="input-group">
+          <span class="input-group-text"><i class="bi bi-search"></i></span>
+          <input class="form-control"
+                 type="search"
+                 name="search"
+                 id="search"
+                 value="{{ search_text }}"
+                 placeholder="Search by name or roll"
+                 aria-label="Search" />
+
+        </div>
+      </div>
+      <div class="filter-wrapper">
+        <i class="bi bi-filter"></i>
+        <select name="department" onchange="this.form.submit()" class="form-select">
+          <option value="">All Departments</option>
+          {% for dept in dept_options %}
+            <option value="{{ dept.name }}"
+                    {% if selected_dept == dept.name %} selected{% endif %}>{{ dept.name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="sort-wrapper">
+        <select name="sort" onchange="this.form.submit()" class="form-select">
+          <option value="" disabled class="d-none d-md-block">Sort by</option>
+          {% for sort_by in sort_options %}
+            <option value="{{ sort_by }}"
+                    {% if selected_sort == sort_by %} selected{% endif %}>{{ sort_by }}</option>
+          {% endfor %}
+        </select>
+      </div>
+    </form>
+  </div>
+  <div style="overflow-x: auto; margin-bottom: 20px">
+    <table class="student-list">
+      <thead class="text-uppercase">
+        <tr>
+          <th class="text-center" style="width: 8%">S.NO</th>
+          <th>Student Name</th>
+          <th style="width: 20%">Department</th>
+          <th class="text-center" style="width: 20%">Roll Number</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for student in page_obj.object_list %}
+          <tr class="student-row position-relative">
+            <td class="text-center">{{ page_obj.start_index|add:forloop.counter0 }}</td>
+            <td>
+              <a href="{% url 'student_profile' student.slug %}"
+                 class="stretched-link d-block">{{ student.first_name }} {{ student.last_name }}</a>
+            </td>
+            <td>{{ student.department.name }}</td>
+            <td class="text-center">{{ student.roll_number }}</td>
+          </tr>
+        {% empty %}
+          <tr>
+            <td colspan="4" class="text-center p-5 fs-4 fw-bold">No Students</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <div class="d-flex justify-content-between align-items-center">
+    <span>Showing {{ page_obj.start_index }} to {{ page_obj.end_index }} of {{ page_obj.paginator.count }} students</span>
+    <nav aria-label="...">
+      <ul class="pagination">
+        <li class="page-item {% if not page_obj.has_previous %}disabled{% endif %}">
+          {% if page_obj.has_previous %}
+            <a class="page-link"
+               href="?{% if query_string %}{{ query_string }}&{% endif %}page={{ page_obj.previous_page_number }}">Previous</a>
+          {% else %}
+            <span class="page-link" tabindex="-1" aria-disabled="true">Previous</span>
+          {% endif %}
+        </li>
+        {% for page in page_obj.paginator.page_range %}
+          <li class="page-item {% if page_obj.number == page %}active{% endif %}">
+            <a class="page-link"
+               href="?{% if query_string %}{{ query_string }}&{% endif %}page={{ page }}">{{ page }}</a>
+          </li>
+        {% endfor %}
+        <li class="page-item {% if not page_obj.has_next %}disabled{% endif %}">
+          {% if page_obj.has_next %}
+            <a class="page-link"
+               href="?{% if query_string %}{{ query_string }}&{% endif %}page={{ page_obj.next_page_number }}">Next</a>
+          {% else %}
+            <span class="page-link" tabindex="-1" aria-disabled="true">Next</span>
+          {% endif %}
+        </li>
+      </ul>
+    </nav>
+  </div>
+{% endblock %}
