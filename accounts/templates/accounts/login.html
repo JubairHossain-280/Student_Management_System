@@ -1,0 +1,81 @@
+<!-- accounts/templates/accounts/login.html -->
+{% extends "accounts/master.html" %}
+
+{% block title %}Sign In | Student Management System{% endblock %}
+
+{% block content %}
+    <div class="row justify-content-center align-items-center"
+         style="min-height: 100vh">
+        <div class="col-12 col-sm-8 col-md-6 col-lg-5">
+            <div class="card text-light shadow border-0 rounded-3"
+                 style="background-color: rgb(0 0 0 / 21%)">
+                <div class="card-body p-4 p-sm-5">
+
+                    <!-- Header -->
+                    <div class="text-center mb-4">
+                        <i class="bi bi-shield-lock-fill text-danger" style="font-size: 3rem;"></i>
+                        <h3 class="fw-bold mt-2">Welcome Back</h3>
+                        <p class="small">Enter your email and password to access your account</p>
+                    </div>
+
+                    <!-- Non-field Errors (e.g. Invalid credentials) -->
+                    {% if form.non_field_errors %}
+                        <div class="alert alert-danger alert-dismissible fade show py-2 small"
+                             role="alert">
+                            {% for error in form.non_field_errors %}
+                                {{ error }}
+                            {% endfor %}
+                            <button type="button"
+                                    class="btn-close py-2"
+                                    data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
+                        </div>
+                    {% endif %}
+
+                    <!-- Form -->
+                    <form method="post" novalidate>
+                        {% csrf_token %}
+
+                        <!-- Hidden 'next' parameter so users return to where they wanted to go -->
+                        {% if request.GET.next %}
+                            <input type="hidden" name="next" value="{{ request.GET.next }}">
+                        {% endif %}
+
+                        <!-- Email Field -->
+                        <div class="mb-3">
+                            <label for="{{ form.username.id_for_label }}"
+                                   class="form-label fw-semibold small">{{ form.username.label }}</label>
+                            <div class="input-group" style="background-color: rgb(37, 37, 37)">
+                                <span class="input-group-text bg-light text-muted"><i class="bi bi-envelope"></i></span>
+                                {{ form.username }}
+                            </div>
+                            {% if form.username.errors %}
+                                <div class="text-danger small mt-1">{{ form.username.errors|first }}</div>
+                            {% endif %}
+                        </div>
+
+                        <!-- Password Field -->
+                        <div class="mb-3">
+                            <label for="{{ form.password.id_for_label }}"
+                                   class="form-label fw-semibold small">{{ form.password.label }}</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light text-muted"><i class="bi bi-key"></i></span>
+                                {{ form.password }}
+                            </div>
+                            {% if form.password.errors %}
+                                <div class="text-danger small mt-1">{{ form.password.errors|first }}</div>
+                            {% endif %}
+                        </div>
+
+                        <!-- Submit Button -->
+                        <button type="submit"
+                                class="primary-btn bg-danger border border-danger w-100 py-2 fw-bold mt-3">
+                            Sign In
+                        </button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

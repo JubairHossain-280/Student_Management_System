@@ -1,0 +1,78 @@
+{% extends "master.html" %}
+{% load static %}
+
+{% block extra_css %}{% endblock %}
+
+{% block app_layout %}
+  <nav class="navbar navbar-expand-lg navbar-dark shadow position-sticky top-0 w-100">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/">
+        <img class=""
+             style="width: 100px"
+             src="{% static '/images/django-logo-negative.svg' %}"
+             alt="logo" />
+      </a>
+      <button class="navbar-toggler"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navLinks"
+              aria-controls="navLinks"
+              aria-expanded="false"
+              aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navLinks">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item mx-2">
+            <a class="nav-link" href="/">Home</a>
+          </li>
+          <li class="nav-item mx-2">
+            <a class="nav-link" href="#">About</a>
+          </li>
+          <li class="nav-item mx-2">
+            <a class="nav-link" href="#">Portfolio</a>
+          </li>
+          <li class="nav-item mx-2 dropdown">
+            <a class="nav-link dropdown-toggle"
+               href="#"
+               id="navbarDropdown"
+               role="button"
+               data-bs-toggle="dropdown"
+               aria-expanded="false">Services</a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="#">Web Design</a></li>
+              <li><a class="dropdown-item" href="#">Web Development</a></li>
+              <li>
+                <hr class="dropdown-divider" />
+              </li>
+              <li><a class="dropdown-item" href="#">App Development</a></li>
+            </ul>
+          </li>
+          <li class="nav-item mx-2">
+            <a class="nav-link" href="#">Contact</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div class="container-fluid d-flex justify-content-between align-items-center my-3">
+    <button type="button"
+            class="bg-transparent border-0 p-0 m-0 h-0 fw-semibold"
+            style="cursor:pointer"
+            onclick="goBack()">
+      <i class="bi bi-arrow-left-circle p-0 text-danger m-0"
+         style="font-size:xx-large"
+         data-bs-toggle="tooltip"
+         data-bs-placement="top"
+         title="go back"></i>
+    </button>
+    <button type="button" class="secondary-btn" onclick="goAddNewPage()">
+      Add New <i class="bi bi-person-plus ms-2 fs-5"></i>
+    </button>
+  </div>
+  <div class="container-md mx-auto">
+    {% block content %}{% endblock %}
+  </div>
+{% endblock %}
+
+{% block extra_js %}{% endblock %}

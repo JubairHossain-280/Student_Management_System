@@ -1,12 +1,12 @@
-{% extends "master.html" %}
+{% extends "myapp/master.html" %}
 {% load static %}
-{% block title %}Edit Data{% endblock %}
+{% block title %}Add New Student{% endblock %}
 {% block content %}
-  <h1 class="text-center fw-bold">🧑‍🎓 Update Student</h1>
+  <h1 class="text-center fw-bold">🧑‍🎓 Add New Student</h1>
   <div class="row">
     <form action=""
           method="post"
-          class="update-student-form row g-2 needs-validation col col-sm-8 col-lg-6 mx-auto"
+          class="add-student-form row g-2 needs-validation col col-sm-8 col-lg-6 mx-auto"
           novalidate>
       {% csrf_token %}
       <div class="col-md-6">
@@ -15,7 +15,6 @@
                class="form-control"
                name="first_name"
                id="first_name"
-               value="{{ student.first_name }}"
                pattern="[A-Za-z]+(?: [A-Za-z]+)*"
                minlength="3"
                placeholder="First Name..."
@@ -28,7 +27,6 @@
                class="form-control"
                name="last_name"
                id="last_name"
-               value="{{ student.last_name }}"
                pattern="[A-Za-z]+(?: [A-Za-z]+)*"
                minlength="3"
                placeholder="Last Name..."
@@ -41,7 +39,6 @@
                class="form-control"
                name="email"
                id="email"
-               value="{{ student.email }}"
                placeholder="example@gmail.com"
                title="Enter a valid email address"
                required />
@@ -53,7 +50,6 @@
                class="form-control"
                name="roll_number"
                id="roll_number"
-               value="{{ student.roll_number }}"
                placeholder="6-digit roll number"
                pattern="[0-9]{6}"
                minlength="6"
@@ -72,8 +68,7 @@
                 required>
           <option value="">Select Department</option>
           {% for dept in departments %}
-            <option value="{{ dept.code }}"
-                    {% if student.department.name == dept.name %}selected{% endif %}>{{ dept.name }}</option>
+            <option value="{{ dept.code }}">{{ dept.name }}</option>
           {% endfor %}
         </select>
         <div class="invalid-feedback">Please select a department!</div>
@@ -86,14 +81,10 @@
                 title="Please select a session year"
                 required>
           <option value="">Select Session</option>
-          <option value="2022-23"
-                  {% if student.session_year == "2022-23" %}selected{% endif %}>2022-23</option>
-          <option value="2023-24"
-                  {% if student.session_year == "2023-24" %}selected{% endif %}>2023-24</option>
-          <option value="2024-25"
-                  {% if student.session_year == "2024-25" %}selected{% endif %}>2024-25</option>
-          <option value="2025-26"
-                  {% if student.session_year == "2025-26" %}selected{% endif %}>2025-26</option>
+          <option value="2022-23">2022-23</option>
+          <option value="2023-24">2023-24</option>
+          <option value="2024-25">2024-25</option>
+          <option value="2025-26">2025-26</option>
         </select>
         <div class="invalid-feedback">Please select a session year!</div>
       </div>
@@ -106,7 +97,6 @@
                  name="gender"
                  id="male"
                  value="Male"
-                 {% if student.gender == "Male" %}checked{% endif %}
                  required>
           <label class="form-check-label" for="male">Male</label>
         </div>
@@ -115,8 +105,7 @@
                  type="radio"
                  name="gender"
                  id="female"
-                 value="Female"
-                 {% if student.gender == "Female" %}checked{% endif %}>
+                 value="Female">
           <label class="form-check-label" for="female">Female</label>
         </div>
         <div class="form-check form-check-inline">
@@ -124,8 +113,7 @@
                  type="radio"
                  name="gender"
                  id="other"
-                 value="Other"
-                 {% if student.gender == "Other" %}checked{% endif %}>
+                 value="Other">
           <label class="form-check-label" for="other">Other</label>
         </div>
       </div>
@@ -135,13 +123,13 @@
           <span class="input-group-text" id="basic-addon1">
             <img src="{% static '/images/bangladesh.png' %}"
                  alt="bn-flag"
-                 width="20px" />
+                 width="25px"
+                 style="object-fit: contain" />
           </span>
           <input type="tel"
                  class="form-control"
                  name="phone"
                  id="phone"
-                 value="{{ student.phone }}"
                  placeholder="01xxxxxxxxx"
                  aria-describedby="basic-addon1"
                  pattern="01[3-9][0-9]{8}"
@@ -159,8 +147,8 @@
                class="form-control"
                name="dob"
                id="dob"
-               value="{{ student.dob|date:'Y-m-d' }}"
-               aria-describedby="helpId" />
+               aria-describedby="helpId"
+               placeholder="" />
       </div>
       <p style="color: #6b7d8c">
         Fields marked with asterisk (<span class="text-danger fw-bold"> * </span>)
@@ -168,10 +156,8 @@
       </p>
       <div class="d-flex flex-column flex-md-row gap-2 w-100 my-4">
         <button type="submit"
-                class="primary-btn bg-success border border-success flex-fill fw-bold text-uppercase">Save changes</button>
-        <button type="button"
-                class="secondary-btn flex-fill fw-bold text-uppercase"
-                onclick="window.location.href = '{% url "student_profile" student.slug %}'">Cancel</button>
+                class="primary-btn bg-success border border-success flex-fill fw-bold text-uppercase">Submit</button>
+        <button type="reset" class="secondary-btn flex-fill fw-bold text-uppercase">Clear</button>
       </div>
       {% if errors %}
         <div class="position-fixed bottom-0 end-0 p-3">

@@ -1,0 +1,10 @@
+{% extends "master.html" %}
+{% block title %}Home Page{% endblock %}
+
+{% block app_layout %}
+  <div class="d-flex flex-column gap-2 justify-content-center align-items-center vh-100">
+    <h1>Django Project</h1>
+    <p>This is my first django project!</p>
+    <a class="primary-btn bg-danger mt-3" href="{% url 'students' %}">See students</a>
+  </div>
+{% endblock %}

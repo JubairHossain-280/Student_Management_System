@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "myapp",
+    "accounts",
+    "rest_framework",
 ]
 
 MIDDLEWARE = [
@@ -59,7 +61,7 @@ ROOT_URLCONF = "myproject.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [BASE_DIR / "templates"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -88,6 +90,23 @@ DATABASES = {
     }
 }
 
+AUTH_USER_MODEL = "accounts.User"
+
+# Session security
+SESSION_COOKIE_HTTPONLY = True  # Prevent JavaScript from reading session cookies
+SESSION_COOKIE_AGE = 1209600  # 2 weeks in seconds (or custom duration)
+SESSION_EXPIRE_AT_BROWSER_CLOSE = (
+    False  # Set True if you want sessions to end on browser close
+)
+SESSION_SAVE_EVERY_REQUEST = False  # Saves DB writes on read requests
+
+# CSRF security
+CSRF_COOKIE_HTTPONLY = True
+
+# Redirect routes
+LOGIN_URL = "login"
+LOGIN_REDIRECT_URL = "students"
+LOGOUT_REDIRECT_URL = "login"
 
 # Password validation
 # https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators
@@ -124,3 +143,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = "static/"
+
+STATICFILES_DIRS = [BASE_DIR / "static"]
+
+STATIC_ROOT = BASE_DIR / "staticfiles"

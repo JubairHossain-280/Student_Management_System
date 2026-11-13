@@ -1,0 +1,255 @@
+[
+{
+  "model": "myapp.department",
+  "pk": "21d14043-267a-4bc4-af89-3288544b0855",
+  "fields": {
+    "name": "Computer Science",
+    "code": "CSE",
+    "is_active": true,
+    "created_at": "2026-11-08T19:25:34.633Z",
+    "updated_at": "2026-11-08T19:25:34.633Z"
+  }
+},
+{
+  "model": "myapp.department",
+  "pk": "2f9fa295-77e0-427e-85ef-159e40e3d29e",
+  "fields": {
+    "name": "Mechanical",
+    "code": "ME",
+    "is_active": true,
+    "created_at": "2026-11-08T19:27:17.935Z",
+    "updated_at": "2026-11-08T19:27:17.935Z"
+  }
+},
+{
+  "model": "myapp.department",
+  "pk": "317b5860-b0bf-44b5-b0ba-7f4d4f8e1f7d",
+  "fields": {
+    "name": "Electrical",
+    "code": "EEE",
+    "is_active": true,
+    "created_at": "2026-11-08T19:26:20.949Z",
+    "updated_at": "2026-11-08T19:26:20.949Z"
+  }
+},
+{
+  "model": "myapp.department",
+  "pk": "6aa0cf0c-07f9-4981-be31-8c37fd5bb805",
+  "fields": {
+    "name": "Civil",
+    "code": "CE",
+    "is_active": true,
+    "created_at": "2026-11-08T19:26:35.484Z",
+    "updated_at": "2026-11-08T19:43:05.088Z"
+  }
+},
+{
+  "model": "myapp.student",
+  "pk": "09e7cd71-d788-40ba-8719-12c360ca2a8a",
+  "fields": {
+    "first_name": "Azharul",
+    "last_name": "Islam Jaber",
+    "email": "azharulislamjaber@gmail.com",
+    "roll_number": 786933,
+    "department": "317b5860-b0bf-44b5-b0ba-7f4d4f8e1f7d",
+    "session_year": "2023-24",
+    "phone": "01800000000",
+    "dob": "2026-11-09",
+    "gender": "Male",
+    "is_active": true,
+    "created_at": "2026-11-09T09:48:32.030Z",
+    "updated_at": "2026-11-09T09:48:32.030Z",
+    "slug": "azharul-islam-jaber"
+  }
+},
+{
+  "model": "myapp.student",
+  "pk": "27f47692-df06-4099-b111-a287bed907ba",
+  "fields": {
+    "first_name": "Nabidul Sazid",
+    "last_name": "Samrat",
+    "email": "nabidulsazidsamrat@gmail.com",
+    "roll_number": 786962,
+    "department": "317b5860-b0bf-44b5-b0ba-7f4d4f8e1f7d",
+    "session_year": "2023-24",
+    "phone": "01600000000",
+    "dob": "2026-11-09",
+    "gender": "Male",
+    "is_active": true,
+    "created_at": "2026-11-09T10:02:04.692Z",
+    "updated_at": "2026-11-09T10:02:04.692Z",
+    "slug": "nabidul-sazid-samrat"
+  }
+},
+{
+  "model": "myapp.student",
+  "pk": "29204f04-c125-46cc-9b4e-b71143a76df1",
+  "fields": {
+    "first_name": "Maliha",
+    "last_name": "Binte Mostafa",
+    "email": "malihabintemostafa@gmail.com",
+    "roll_number": 786961,
+    "department": "21d14043-267a-4bc4-af89-3288544b0855",
+    "session_year": "2022-23",
+    "phone": "01500000000",
+    "dob": "2026-11-01",
+    "gender": "Female",
+    "is_active": true,
+    "created_at": "2026-11-09T10:00:25.801Z",
+    "updated_at": "2026-11-10T07:58:16.696Z",
+    "slug": "maliha-binte-mostafa"
+  }
+},
+{
+  "model": "myapp.student",
+  "pk": "429afaf0-56a8-496a-b072-7d741bdf13df",
+  "fields": {
+    "first_name": "Md Jisan",
+    "last_name": "Farazi",
+    "email": "mdjisanfarazi@gmail.com",
+    "roll_number": 786952,
+    "department": "6aa0cf0c-07f9-4981-be31-8c37fd5bb805",
+    "session_year": "2025-26",
+    "phone": "01300000000",
+    "dob": null,
+    "gender": "Male",
+    "is_active": true,
+    "created_at": "2026-11-09T09:52:14.570Z",
+    "updated_at": "2026-11-09T09:52:14.571Z",
+    "slug": "md-jisan-farazi"
+  }
+},
+{
+  "model": "myapp.student",
+  "pk": "494c717a-57e0-473f-aafe-3165b864ec6d",
+  "fields": {
+    "first_name": "Nayan",
+    "last_name": "Kumar Shill",
+    "email": "nayankumarshill@gmail.com",
+    "roll_number": 786976,
+    "department": "2f9fa295-77e0-427e-85ef-159e40e3d29e",
+    "session_year": "2024-25",
+    "phone": "01700000000",
+    "dob": "2026-11-02",
+    "gender": "Male",
+    "is_active": true,
+    "created_at": "2026-11-09T10:05:46.434Z",
+    "updated_at": "2026-11-09T10:05:46.434Z",
+    "slug": "nayan-kumar-shill"
+  }
+},
+{
+  "model": "myapp.student",
+  "pk": "77709f4b-1ac5-48f1-bf0f-1a47a18a0348",
+  "fields": {
+    "first_name": "Jubair",
+    "last_name": "Hossain Shakib",
+    "email": "jubaircse280@gmail.com",
+    "roll_number": 786924,
+    "department": "21d14043-267a-4bc4-af89-3288544b0855",
+    "session_year": "2022-23",
+    "phone": "01711149280",
+    "dob": "2007-06-01",
+    "gender": "Male",
+    "is_active": true,
+    "created_at": "2026-11-08T20:05:36.624Z",
+    "updated_at": "2026-11-09T00:40:49.024Z",
+    "slug": "jubair-hossain-shakib"
+  }
+},
+{
+  "model": "myapp.student",
+  "pk": "7ed5a822-33c6-42a9-81b3-60b83b7824d9",
+  "fields": {
+    "first_name": "Sresto",
+    "last_name": "Barua",
+    "email": "srestobarua@gmail.com",
+    "roll_number": 786920,
+    "department": "317b5860-b0bf-44b5-b0ba-7f4d4f8e1f7d",
+    "session_year": "2023-24",
+    "phone": "01500000000",
+    "dob": "2026-11-09",
+    "gender": "Male",
+    "is_active": true,
+    "created_at": "2026-11-09T01:00:31.718Z",
+    "updated_at": "2026-11-12T14:44:46.686Z",
+    "slug": "sresto-barua"
+  }
+},
+{
+  "model": "myapp.student",
+  "pk": "867916cc-6f22-4201-b53c-4c4198ee5407",
+  "fields": {
+    "first_name": "Mohammad",
+    "last_name": "Omor",
+    "email": "mohammodomor@gmail.com",
+    "roll_number": 786923,
+    "department": "2f9fa295-77e0-427e-85ef-159e40e3d29e",
+    "session_year": "2024-25",
+    "phone": "01700000000",
+    "dob": null,
+    "gender": "Male",
+    "is_active": true,
+    "created_at": "2026-11-09T09:41:37.745Z",
+    "updated_at": "2026-11-09T09:41:37.745Z",
+    "slug": "mohammad-omor"
+  }
+},
+{
+  "model": "myapp.student",
+  "pk": "aaac0c6c-a096-4225-bbb5-471a1c93f185",
+  "fields": {
+    "first_name": "Fahim",
+    "last_name": "Faisal",
+    "email": "fahimfaisal@gmail.com",
+    "roll_number": 786925,
+    "department": "6aa0cf0c-07f9-4981-be31-8c37fd5bb805",
+    "session_year": "2025-26",
+    "phone": "01300000000",
+    "dob": null,
+    "gender": "Male",
+    "is_active": true,
+    "created_at": "2026-11-09T09:43:06.939Z",
+    "updated_at": "2026-11-09T09:43:06.939Z",
+    "slug": "fahim-faisal"
+  }
+},
+{
+  "model": "myapp.student",
+  "pk": "c9c60236-a841-446d-8ed8-aae3ff2c3f9e",
+  "fields": {
+    "first_name": "Ridoy",
+    "last_name": "Chandra Das",
+    "email": "ridoychandradas@gmail.com",
+    "roll_number": 787006,
+    "department": "6aa0cf0c-07f9-4981-be31-8c37fd5bb805",
+    "session_year": "2025-26",
+    "phone": "01300000000",
+    "dob": "2026-11-09",
+    "gender": "Male",
+    "is_active": true,
+    "created_at": "2026-11-09T17:45:40.900Z",
+    "updated_at": "2026-11-09T17:45:40.900Z",
+    "slug": "ridoy-chandra-das"
+  }
+},
+{
+  "model": "myapp.student",
+  "pk": "fb1e40b1-54f6-4233-a542-a2f9929bcb7e",
+  "fields": {
+    "first_name": "Tasiful",
+    "last_name": "Hoque",
+    "email": "tasifulhoque@gmail.com",
+    "roll_number": 786931,
+    "department": "21d14043-267a-4bc4-af89-3288544b0855",
+    "session_year": "2022-23",
+    "phone": "01600000000",
+    "dob": null,
+    "gender": "Male",
+    "is_active": true,
+    "created_at": "2026-11-09T09:47:15.896Z",
+    "updated_at": "2026-11-09T09:47:15.896Z",
+    "slug": "tasiful-hoque"
+  }
+}
+]

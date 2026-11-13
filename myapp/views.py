@@ -13,7 +13,7 @@ from .utils.main import api_response
 
 
 def root(request):
-    return render(request, "index.html")
+    return render(request, "myapp/index.html")
 
 
 def students(request):
@@ -83,13 +83,13 @@ def students(request):
         "selected_dept": selected_dept,
     }
 
-    return render(request, "students.html", context)
+    return render(request, "myapp/students.html", context)
 
 
 def student_profile(request, slug):
     student = get_object_or_404(Student, slug=slug)
     context = {"student": student}
-    return render(request, "student_profile.html", context)
+    return render(request, "myapp/student_profile.html", context)
 
 
 def add_student(request):
@@ -117,7 +117,7 @@ def add_student(request):
         except Department.DoesNotExist:
             return render(
                 request,
-                "add_student.html",
+                "myapp/add_student.html",
                 {
                     "errors": ["Please select a valid department!"],
                     "departments": Department.objects.filter(is_active=True),
@@ -127,7 +127,7 @@ def add_student(request):
         except ValidationError as error:
             return render(
                 request,
-                "add_student.html",
+                "myapp/add_student.html",
                 {
                     "errors": error.messages,
                     "departments": Department.objects.filter(is_active=True),
@@ -138,7 +138,7 @@ def add_student(request):
 
     departments = Department.objects.filter(is_active=True)
 
-    return render(request, "add_student.html", {"departments": departments})
+    return render(request, "myapp/add_student.html", {"departments": departments})
 
 
 def update_student(request, slug):
@@ -166,7 +166,7 @@ def update_student(request, slug):
         except ValidationError as error:
             return render(
                 request,
-                "update_profile.html",
+                "myapp/update_profile.html",
                 {
                     "student": student,
                     "departments": Department.objects.filter(is_active=True),
@@ -180,7 +180,7 @@ def update_student(request, slug):
 
     context = {"student": student, "departments": departments}
 
-    return render(request, "update_profile.html", context)
+    return render(request, "myapp/update_profile.html", context)
 
 
 def delete_student(request, slug):
