@@ -1,17 +1,68 @@
 {% extends "master.html" %}
 
-{% block title %}403 - Permission Denied{% endblock %}
+{% block title %}403 - Access Forbidden | Student Management System{% endblock %}
 
 {% block app_layout %}
-    <div class="d-flex justify-content-center align-items-center text-center"
-         style="min-height: 100vh">
-        <div class="">
-            <i class="bi bi-shield-x text-danger" style="font-size: 5rem;line-height: 0"></i>
-            <h1 class="display-5 fw-bold mt-3">403 - Access Denied</h1>
-            <p class="text-secondary mt-2">You do not have the required permissions to access this page or perform this action.</p>
-            <a href="{% url 'root' %}" class="btn btn-danger mt-3">
-                <i class="bi bi-arrow-left"></i> Return to Home
-            </a>
+  <div class="d-flex justify-content-center align-items-center text-center px-3"
+       style="min-height: 100vh">
+    <div class="p-4 p-md-5 rounded-4 shadow-lg"
+         style="max-width: 620px;
+                background: rgba(0, 0, 0, 0.45);
+                backdrop-filter: blur(12px);
+                border: 1px solid rgba(255, 255, 255, 0.1)">
+
+      <!-- Big Stylized 403 Header -->
+      <div class="mb-3">
+        <span class="display-1 fw-bold text-danger"
+              style="letter-spacing: 4px;
+                     text-shadow: 0 0 25px rgba(220, 53, 69, 0.5)">
+          403
+        </span>
+      </div>
+
+      <!-- Icon & Headline -->
+      <h2 class="fw-bold text-light mb-2">
+        <i class="bi bi-shield-lock-fill text-danger me-2"></i>Access Forbidden
+      </h2>
+      <p class="text-secondary mb-3 fs-6">
+        You do not have the required role or permissions to view this page or perform this action.
+      </p>
+
+      <!-- User Role Context -->
+      {% if user.is_authenticated %}
+        <div class="p-2 mb-4 rounded-3 d-inline-block text-start small"
+             style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.08);">
+          <span class="text-secondary">Signed in as:</span>
+          <strong class="text-light ms-1">{{ user.email }}</strong>
+          {% if user.is_superuser %}
+            <span class="badge bg-danger ms-1">Admin</span>
+          {% elif perms.myapp.add_student %}
+            <span class="badge bg-warning text-dark ms-1">Teacher</span>
+          {% else %}
+            <span class="badge bg-info text-dark ms-1">Student</span>
+          {% endif %}
         </div>
+      {% endif %}
+
+      <!-- Quick Action Buttons -->
+      <div class="d-flex flex-wrap justify-content-center gap-3">
+        <a href="{% url 'root' %}"
+           class="primary-btn bg-danger border border-danger text-decoration-none d-inline-flex align-items-center">
+          <i class="bi bi-house-door-fill me-2"></i> Home
+        </a>
+
+        <a href="{% url 'students' %}"
+           class="secondary-btn text-decoration-none d-inline-flex align-items-center">
+          <i class="bi bi-people-fill me-2"></i> Students
+        </a>
+
+        <button type="button"
+                onclick="history.back()"
+                class="btn btn-outline-secondary px-3 py-2 fw-semibold d-inline-flex align-items-center">
+          <i class="bi bi-arrow-left me-1"></i> Go Back
+        </button>
+      </div>
+
     </div>
+  </div>
 {% endblock %}

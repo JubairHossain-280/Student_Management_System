@@ -1,0 +1,52 @@
+{% extends "master.html" %}
+
+{% block title %}404 - Page Not Found | Student Management System{% endblock %}
+
+{% block app_layout %}
+  <div class="d-flex justify-content-center align-items-center text-center px-3"
+       style="min-height: 100vh">
+    <div class="p-4 p-md-5 rounded-4 shadow-lg"
+         style="max-width: 620px;
+                background: rgba(0, 0, 0, 0.45);
+                backdrop-filter: blur(12px);
+                border: 1px solid rgba(255, 255, 255, 0.1)">
+
+      <!-- Big Stylized 404 Header -->
+      <div class="mb-3">
+        <span class="display-1 fw-bold text-danger"
+              style="letter-spacing: 4px;
+                     text-shadow: 0 0 25px rgba(220, 53, 69, 0.5)">
+          404
+        </span>
+      </div>
+
+      <!-- Icon & Headline -->
+      <h2 class="fw-bold text-light mb-2">
+        <i class="bi bi-compass text-warning me-2"></i>Lost Your Way?
+      </h2>
+      <p class="text-secondary mb-4 fs-6">
+        The page you are looking for does not exist, has been removed, or the link may be broken.
+      </p>
+
+      <!-- Quick Action Buttons -->
+      <div class="d-flex flex-wrap justify-content-center gap-3">
+        <a href="{% url 'root' %}"
+           class="primary-btn bg-danger border border-danger text-decoration-none d-inline-flex align-items-center">
+          <i class="bi bi-house-door-fill me-2"></i> Home
+        </a>
+
+        <a href="{% url 'students' %}"
+           class="secondary-btn text-decoration-none d-inline-flex align-items-center">
+          <i class="bi bi-people-fill me-2"></i> Students
+        </a>
+
+        <button type="button"
+                onclick="history.back()"
+                class="btn btn-outline-secondary px-3 py-2 fw-semibold d-inline-flex align-items-center">
+          <i class="bi bi-arrow-left me-1"></i> Go Back
+        </button>
+      </div>
+
+    </div>
+  </div>
+{% endblock %}

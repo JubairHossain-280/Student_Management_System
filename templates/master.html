@@ -9,11 +9,11 @@
 
         <!-- Global CSS -->
         <link rel="shortcut icon"
-              href="{% static '/favicon/django-icon-svgrepo-com.svg' %}"
+              href="{% static 'favicon/django-icon-svgrepo-com.svg' %}"
               type="image/x-icon" />
-        <link rel="stylesheet" href="{% static '/css/bootstrap.min.css' %}" />
-        <link rel="stylesheet" href="{% static '/css/bootstrap-icons.css' %}">
-        <link rel="stylesheet" href="{% static '/css/index.css' %}" />
+        <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" />
+        <link rel="stylesheet" href="{% static 'css/bootstrap-icons.css' %}">
+        <link rel="stylesheet" href="{% static 'css/index.css' %}" />
 
         <!-- App Specific Extra CSS -->
         {% block extra_css %}{% endblock %}
@@ -41,8 +41,17 @@
         {% block app_layout %}{% endblock %}
 
         <!-- Global JS -->
-        <script src="{% static '/js/bootstrap.bundle.min.js' %}"></script>
-        <script src="{% static '/js/index.js' %}"></script>
+        <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+        <script src="{% static 'js/index.js' %}"></script>
+
+        <!-- Bust BFCache on logout/history back -->
+        <script>
+            window.addEventListener('pageshow', function (event) {
+                if (event.persisted) {
+                    window.location.reload();
+                }
+            });
+        </script>
 
         <!-- App Specific Extra JS -->
         {% block extra_js %}{% endblock %}
