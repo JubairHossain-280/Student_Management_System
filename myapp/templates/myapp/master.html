@@ -35,7 +35,8 @@
                href="{% url 'students' %}">Students</a>
           </li>
           <li class="nav-item mx-2">
-            <a class="nav-link" href="#">Departments</a>
+            <a class="nav-link {% if request.resolver_match.url_name == 'departments' %}active{% endif %}"
+               href="{% url 'departments' %}">Departments</a>
           </li>
         </ul>
 

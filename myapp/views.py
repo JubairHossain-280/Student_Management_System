@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.exceptions import ValidationError
 from django.db.models.functions import Lower
-from django.db.models import Q
+from django.db.models import Q, Count
 from django.core.paginator import Paginator
 from django.http import HttpResponse, JsonResponse
 from rest_framework.parsers import JSONParser
@@ -93,6 +93,14 @@ def student_profile(request, slug):
     student = get_object_or_404(Student, slug=slug)
     context = {"student": student}
     return render(request, "myapp/student_profile.html", context)
+
+
+@login_required
+def departments(request):
+    dept_list = Department.objects.annotate(
+        total_students=Count("students")
+    ).order_by("name")
+    return render(request, "myapp/departments.html", {"departments": dept_list})
 
 
 @permission_required("myapp.add_student", raise_exception=True)

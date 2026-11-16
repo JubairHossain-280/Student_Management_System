@@ -1,0 +1,48 @@
+{% extends "myapp/master.html" %}
+{% block title %}Departments | Student Management System{% endblock %}
+
+{% block content %}
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h3 class="m-0">Departments</h3>
+    <span class="badge bg-danger fs-6">{{ departments|length }} Total</span>
+  </div>
+
+  <div style="overflow-x: auto; margin-bottom: 20px">
+    <table class="student-list w-100">
+      <thead class="text-uppercase">
+        <tr>
+          <th class="text-center" style="width: 8%">S.NO</th>
+          <th>Department Name</th>
+          <th class="text-center" style="width: 15%">Code</th>
+          <th class="text-center" style="width: 18%">Total Students</th>
+          <th class="text-center" style="width: 15%">Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for dept in departments %}
+          <tr class="student-row">
+            <td class="text-center">{{ forloop.counter }}</td>
+            <td class="fw-semibold">{{ dept.name }}</td>
+            <td class="text-center">
+              <span class="badge bg-dark border border-secondary">{{ dept.code }}</span>
+            </td>
+            <td class="text-center">
+              <span class="badge bg-primary rounded-pill">{{ dept.total_students }}</span>
+            </td>
+            <td class="text-center">
+              {% if dept.is_active %}
+                <span class="badge bg-success">Active</span>
+              {% else %}
+                <span class="badge bg-secondary">Inactive</span>
+              {% endif %}
+            </td>
+          </tr>
+        {% empty %}
+          <tr>
+            <td colspan="5" class="text-center py-4 text-muted">No departments found.</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}
