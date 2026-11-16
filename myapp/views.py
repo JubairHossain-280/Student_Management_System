@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required, permission_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.exceptions import ValidationError
 from django.db.models.functions import Lower
@@ -16,6 +17,7 @@ def root(request):
     return render(request, "myapp/index.html")
 
 
+@login_required
 def students(request):
     # getting the search query parameter from the requested URL
     search_text = request.GET.get("search", "").strip()
@@ -86,12 +88,14 @@ def students(request):
     return render(request, "myapp/students.html", context)
 
 
+@login_required
 def student_profile(request, slug):
     student = get_object_or_404(Student, slug=slug)
     context = {"student": student}
     return render(request, "myapp/student_profile.html", context)
 
 
+@permission_required("myapp.add_student", raise_exception=True)
 def add_student(request):
     if request.method == "POST":
         dept_code = request.POST.get("department")
@@ -140,7 +144,7 @@ def add_student(request):
 
     return render(request, "myapp/add_student.html", {"departments": departments})
 
-
+@permission_required("myapp.change_student", raise_exception=True)
 def update_student(request, slug):
     student = get_object_or_404(Student, slug=slug)
 
@@ -182,7 +186,7 @@ def update_student(request, slug):
 
     return render(request, "myapp/update_profile.html", context)
 
-
+@permission_required("myapp.delete_student", raise_exception=True)
 def delete_student(request, slug):
     if request.method == "POST":
 
@@ -197,8 +201,8 @@ def delete_student(request, slug):
 
 # API Views
 
-
 @csrf_exempt
+@login_required
 def students_api(request):
     # Get all students
     if request.method == "GET":
@@ -223,7 +227,7 @@ def students_api(request):
             )
         return api_response(False, 400, "Student creation failed", serializer.errors)
 
-
+@login_required
 def single_student_api(request, id):
     # Get a single student
     if request.method == "GET":

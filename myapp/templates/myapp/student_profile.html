@@ -6,51 +6,61 @@
       <div class="d-flex justify-content-between align-items-center">
         <h3>{{ student.first_name }} {{ student.last_name }}</h3>
         <div class="d-flex gap-4">
-          <button type="button"
-                  class="bg-transparent text-danger fs-4 border-0"
-                  data-bs-toggle="tooltip"
-                  data-bs-placement="bottom"
-                  title="Edit Data"
-                  onclick="window.location.href = '{% url "update_student" student.slug %}'">
-            <i class="bi bi-pencil-square"></i>
-          </button>
-          <!-- Button trigger delete modal -->
-          <button type="button"
-                  class="bg-transparent text-danger fs-4 border-0"
-                  data-bs-toggle="modal"
-                  data-bs-target="#deleteModal">
-            <i class="bi bi-trash3"
-               data-bs-toggle="tooltip"
-               data-bs-placement="bottom"
-               title="Delete"></i>
-          </button>
-          <!-- Delete Modal start -->
-          <div class="modal"
-               id="deleteModal"
-               tabindex="-1"
-               aria-labelledby="exampleModalLabel"
-               aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">Delete</h5>
-                  <button type="button"
-                          class="btn-close"
-                          data-bs-dismiss="modal"
-                          aria-label="Close"></button>
-                </div>
-                <div class="modal-body">Do you really want to delete?</div>
-                <div class="modal-footer">
-                  <button type="button" class="primary-btn bg-secondary border border-secondary" data-bs-dismiss="modal">Cancel</button>
-                  <form action="{% url "delete_student" student.slug %}" method="post">
-                    {% csrf_token %}
-                    <button type="submit" class="secondary-btn">Delete</button>
-                  </form>
+
+          {% if perms.myapp.change_student %}
+            <button type="button"
+                    class="bg-transparent text-danger fs-4 border-0"
+                    data-bs-toggle="tooltip"
+                    data-bs-placement="bottom"
+                    title="Edit Data"
+                    onclick="window.location.href = '{% url "update_student" student.slug %}'">
+              <i class="bi bi-pencil-square"></i>
+            </button>
+          {% endif %}
+
+
+          {% if perms.myapp.delete_student %}
+            <!-- Button trigger delete modal -->
+            <button type="button"
+                    class="bg-transparent text-danger fs-4 border-0"
+                    data-bs-toggle="modal"
+                    data-bs-target="#deleteModal">
+              <i class="bi bi-trash3"
+                 data-bs-toggle="tooltip"
+                 data-bs-placement="bottom"
+                 title="Delete"></i>
+            </button>
+
+            <!-- Delete Modal start -->
+            <div class="modal"
+                 id="deleteModal"
+                 tabindex="-1"
+                 aria-labelledby="exampleModalLabel"
+                 aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Delete</h5>
+                    <button type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">Do you really want to delete?</div>
+                  <div class="modal-footer">
+                    <button type="button"
+                            class="primary-btn bg-secondary border border-secondary"
+                            data-bs-dismiss="modal">Cancel</button>
+                    <form action="{% url "delete_student" student.slug %}" method="post">
+                      {% csrf_token %}
+                      <button type="submit" class="secondary-btn">Delete</button>
+                    </form>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <!-- Delete Modal end -->
+            <!-- Delete Modal end -->
+          {% endif %}
         </div>
       </div>
       <div class="student-profile d-flex flex-column gap-4 my-3">
@@ -91,7 +101,8 @@
           <i class="bi bi-telephone"></i> Phone No. : {{ student.phone }}
         </p>
       </div>
-      <a class="primary-btn bg-danger d-table mx-auto" href="{% url 'students' %}">Go back to students</a>
+      <a class="primary-btn bg-danger d-table mx-auto"
+         href="{% url 'students' %}">Go back to students</a>
     </div>
   </div>
 {% endblock %}

@@ -1,7 +1,9 @@
 {% extends "master.html" %}
 {% load static %}
 
-{% block extra_css %}{% endblock %}
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+{% endblock %}
 
 {% block app_layout %}
   <nav class="navbar navbar-expand-lg navbar-dark shadow position-sticky top-0 w-100">
@@ -12,6 +14,7 @@
              src="{% static '/images/django-logo-negative.svg' %}"
              alt="logo" />
       </a>
+
       <button class="navbar-toggler"
               type="button"
               data-bs-toggle="collapse"
@@ -24,36 +27,56 @@
       <div class="collapse navbar-collapse" id="navLinks">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item mx-2">
-            <a class="nav-link" href="/">Home</a>
+            <a class="nav-link {% if request.resolver_match.url_name == 'root' %}active{% endif %}"
+               href="/">Home</a>
           </li>
           <li class="nav-item mx-2">
-            <a class="nav-link" href="#">About</a>
+            <a class="nav-link {% if request.resolver_match.url_name == 'students' %}active{% endif %}"
+               href="{% url 'students' %}">Students</a>
           </li>
           <li class="nav-item mx-2">
-            <a class="nav-link" href="#">Portfolio</a>
-          </li>
-          <li class="nav-item mx-2 dropdown">
-            <a class="nav-link dropdown-toggle"
-               href="#"
-               id="navbarDropdown"
-               role="button"
-               data-bs-toggle="dropdown"
-               aria-expanded="false">Services</a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" href="#">Web Design</a></li>
-              <li><a class="dropdown-item" href="#">Web Development</a></li>
-              <li>
-                <hr class="dropdown-divider" />
-              </li>
-              <li><a class="dropdown-item" href="#">App Development</a></li>
-            </ul>
-          </li>
-          <li class="nav-item mx-2">
-            <a class="nav-link" href="#">Contact</a>
+            <a class="nav-link" href="#">Departments</a>
           </li>
         </ul>
+
+        <div class="d-flex align-items-center gap-3">
+          {% if user.is_authenticated %}
+            <div class="dropdown mx-2">
+              <span class="dropdown-toggle"
+                    style="cursor: pointer"
+                    id="dropdownMenuButton1"
+                    data-bs-toggle="dropdown"
+                    title="Account">
+                <i class="bi bi-person-circle me-1 fs-4"></i>
+              </span>
+              <ul class="dropdown-menu dropdown-menu-lg-end user-dropdown-menu"
+                  aria-labelledby="dropdownMenuButton1">
+                <li>
+                  <span class="dropdown-item-text d-flex align-items-center gap-1">{{ user.get_short_name }}
+                    {% if user.is_superuser %}
+                      <span class="badge bg-success ms-1 text-uppercase">Admin</span>
+                    {% elif perms.myapp.add_student %}
+                      <span class="badge bg-warning text-dark ms-1 text-uppercase">Teacher</span>
+                    {% else %}
+                      <span class="badge bg-info text-dark ms-1 text-uppercase">Student</span>
+                    {% endif %}
+                  </span>
+                </li>
+                <li>
+                  <form action="{% url 'logout' %}" method="post" class="d-inline m-0">
+                    {% csrf_token %}
+                    <button type="submit" class="logout-btn dropdown-item">Logout</button>
+                  </form>
+                </li>
+              </ul>
+            </div>
+          {% else %}
+            <a href="{% url 'login' %}" class="primary-btn bg-danger">Sign In</a>
+          {% endif %}
+        </div>
       </div>
     </div>
+  </div>
   </nav>
   <div class="container-fluid d-flex justify-content-between align-items-center my-3">
     <button type="button"
@@ -66,9 +89,13 @@
          data-bs-placement="top"
          title="go back"></i>
     </button>
-    <button type="button" class="secondary-btn" onclick="goAddNewPage()">
-      Add New <i class="bi bi-person-plus ms-2 fs-5"></i>
-    </button>
+
+    {% if perms.myapp.add_student %}
+      <button type="button" class="secondary-btn" onclick="goAddNewPage()">
+        Add New <i class="bi bi-person-plus ms-2 fs-5"></i>
+      </button>
+    {% endif %}
+
   </div>
   <div class="container-md mx-auto">
     {% block content %}{% endblock %}

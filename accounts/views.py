@@ -1,10 +1,43 @@
 # accounts/views.py
+from .forms import StudentRegistrationForm, EmailAuthenticationForm
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout
+from django.contrib.auth.models import Group
 from django.contrib import messages
 from django.utils.http import url_has_allowed_host_and_scheme
 from django.conf import settings
-from .forms import EmailAuthenticationForm
+from myapp.models import Student
+
+
+def register_user(request):
+    if request.user.is_authenticated:
+        return redirect(settings.LOGIN_REDIRECT_URL)
+
+    if request.method == "POST":
+        form = StudentRegistrationForm(request.POST)
+        if form.is_valid():
+            email = form.cleaned_data["email"]
+            # Fetch the verified enrolled student record
+            student_record = Student.objects.get(email__iexact=email)
+
+            user = form.save(commit=False)
+            user.set_password(form.cleaned_data["password"])
+
+            if not user.first_name:
+                user.first_name = student_record.first_name
+            if not user.last_name:
+                user.last_name = student_record.last_name
+
+            user.save()
+            # SECURE: Automatically assign the 'Student' group in code
+            student_group = Group.objects.get(name="Student")
+            user.groups.add(student_group)
+            messages.success(request, "Account created successfully!")
+            return redirect(settings.LOGIN_URL)
+    else:
+        form = StudentRegistrationForm()
+
+    return render(request, "accounts/register.html", {"form": form})
 
 
 def login_user(request):
@@ -41,5 +74,5 @@ def logout_user(request):
     if request.method == "POST":
         logout(request)
         messages.info(request, "You have been logged out.")
-        return redirect("login")
+        return redirect(settings.LOGOUT_REDIRECT_URL)
     return redirect("students")

@@ -19,5 +19,5 @@ urlpatterns = [
     # API Routes
     path("api/students/", views.students_api, name="students_api"),
 
-    path("api/students/<int:id>", views.single_student_api, name="single_student_api"),
+    path("api/students/<uuid:id>", views.single_student_api, name="single_student_api"),
 ]
